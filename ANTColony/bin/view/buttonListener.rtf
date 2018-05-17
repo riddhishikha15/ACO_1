@@ -1,0 +1,202 @@
+{\rtf1\ansi {\fonttbl
+{\f0\fcharset1 \fnil Times New Roman;}
+{\f1\fcharset1 Courier New;}
+}
+{\colortbl
+\red0\green0\blue0;
+\red128\green0\blue0;
+\red0\green0\blue255;
+\red0\green128\blue0;
+}
+
+{\plain 
+{\f1 {\fs20 
+{\cf0 {\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 package}}}}{\cf0  view;{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  java.awt.event.ActionEvent;}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  java.awt.event.ActionListener;}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  java.io.File;}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  java.io.IOException;{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  javax.swing.JFileChooser;{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  object.MyFilter;}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  object.Playground;}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  object.SerializerNodes;{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 public}}}}{\cf0  }{\b 
+{\cf1 class}}{\cf0  buttonListener }{\b 
+{\cf1 implements}}{\cf0  ActionListener \{{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 private}}{\cf0  Playground p;{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 public}}{\cf0  buttonListener(Playground p) \{}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 super}}{\cf0 ();}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 this}}{\cf0 .p = p;}{\line 
+}{\f1 {\fs20 
+{\cf0     \}{\line 
+}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  actionPerformed(ActionEvent e) \{}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 if}}{\cf0 (}{\cf2 "New"}{\cf0 .equals(e.getActionCommand()))\{}{\line 
+}{\f1 {\fs20 
+{\cf0             p.initPlayground();}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 p.initTrace();}}}{\line 
+}{\f1 {\fs20 
+{\cf0             p.initAnt();}}}{\line 
+}{\f1 {\fs20 
+{\cf0             p.repaint();}}}{\line 
+}{\f1 {\fs20 
+{\cf0         \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 else}}{\cf0  }{\b 
+{\cf1 if}}{\cf0 (}{\cf2 "Load"}{\cf0 .equals(e.getActionCommand()))\{}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 this}}{\cf0 .loadAFile(p);}{\line 
+}{\f1 {\fs20 
+{\cf0         \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 else}}{\cf0  }{\b 
+{\cf1 if}}{\cf0 (}{\cf2 "ResetTrace"}{\cf0 .equals(e.getActionCommand()))\{}{\line 
+}{\f1 {\fs20 
+{\cf0             p.resetTrace();}}}{\line 
+}{\f1 {\fs20 
+{\cf0             p.repaint();}}}{\line 
+}{\f1 {\fs20 
+{\cf0         \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 else}}{\cf0  }{\b 
+{\cf1 if}}{\cf0  (}{\cf2 "ResetAnt"}{\cf0 .equals(e.getActionCommand()))\{}{\line 
+}{\f1 {\fs20 
+{\cf0             p.initAnt();}}}{\line 
+}{\f1 {\fs20 
+{\cf0             p.repaint();}}}{\line 
+}{\f1 {\fs20 
+{\cf0         \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 else}}{\cf0  }{\b 
+{\cf1 if}}{\cf0  (}{\cf2 "ResetPlayground"}{\cf0 .equals(e.getActionCommand()))\{}{\line 
+}{\f1 {\fs20 
+{\cf0             p.resetPlayground();}}}{\line 
+}{\f1 {\fs20 
+{\cf0             p.repaint();}}}{\line 
+}{\f1 {\fs20 
+{\cf0         \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 else}}{\cf0  }{\b 
+{\cf1 if}}{\cf0 (}{\cf2 "Save"}{\cf0 .equals(e.getActionCommand()))\{}{\line 
+}{\f1 {\fs20 
+{\cf0             SerializerNodes sNodes = }}}{\b 
+{\cf1 new}}{\cf0  SerializerNodes(p);}{\line 
+}{\f1 {\fs20 
+{\cf0             sNodes.saveInFile();}}}{\line 
+}{\f1 {\fs20 
+{\cf0         \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 else}}{\cf0  }{\b 
+{\cf1 if}}{\cf0 (}{\cf2 "Quit"}{\cf0 .equals(e.getActionCommand()))\{}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\i 
+{\cf3 //p.exit();{\line 
+}}}{\line 
+}{\f1 {\fs20 
+{\cf0         \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 private}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  loadAFile(Playground p)\{}{\line 
+}{\f1 {\fs20 
+{\cf0         SerializerNodes serializerNodes = }}}{\b 
+{\cf1 new}}{\cf0  SerializerNodes(p);}{\line 
+}{\f1 {\fs20 
+{\cf0                 JFileChooser jFile = }}}{\b 
+{\cf1 new}}{\cf0  JFileChooser();{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\i 
+{\cf3 // Only .map files}}{\line 
+}{\f1 {\fs20 
+{\cf0                 MyFilter monFiltre = }}}{\b 
+{\cf1 new}}{\cf0  MyFilter( }{\b 
+{\cf1 new}}{\cf0  String[]\{}{\cf2 "map"}{\cf0 \}, }{\cf2 "Map files  *.map"}{\cf0 );}{\line 
+}{\f1 {\fs20 
+{\cf0                 jFile.addChoosableFileFilter(monFiltre);}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 jFile.setCurrentDirectory(}}}{\b 
+{\cf1 new}}{\cf0  File(}{\cf2 "/"}{\cf0 ));}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 int}}{\cf0  retour = jFile.showOpenDialog(jFile);}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 if}}{\cf0  (retour == JFileChooser.APPROVE_OPTION)\{}{\line 
+}{\f1 {\fs20 
+{\cf0                         jFile.getSelectedFile().getName();}}}{\line 
+}{\f1 {\fs20 
+{\cf0                         jFile.getSelectedFile().getAbsolutePath();{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                         }}}{\b 
+{\cf1 try}}{\cf0  \{}{\line 
+}{\f1 {\fs20 
+{\cf0                                 serializerNodes.loadFromFile(jFile.getSelectedFile().getPath());}}}{\line 
+}{\f1 {\fs20 
+{\cf0                         \} }}}{\b 
+{\cf1 catch}}{\cf0  (IOException e) \{ e.printStackTrace();}{\line 
+}{\f1 {\fs20 
+{\cf0                         \} }}}{\b 
+{\cf1 catch}}{\cf0  (ClassNotFoundException e) \{\}}{\line 
+}{\f1 {\fs20 
+{\cf0                 \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     \}{\line 
+}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0 \}}}}}}}}}

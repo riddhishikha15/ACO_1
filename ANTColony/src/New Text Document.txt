@@ -1,0 +1,13 @@
+
+Change the background by clicking on the map. You can save and load a map locally (it will not work on the server).
+The cyan square with a cross is the food, the empty square is the nest, from where the ants will start. The food is the goal, and once reached, the ants should go back to the nest.
+You can modify the map in live.
+
+Click on the Start bouton to begin.
+
+
+
+Get the code : ZIP
+
+The paper (doc) : Ant Colony Algorithm - Report.doc
+The presentation (ppt) : Ant Colony Algorithm - Presentation.ppt

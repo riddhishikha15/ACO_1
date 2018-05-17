@@ -1,0 +1,87 @@
+{\rtf1\ansi {\fonttbl
+{\f0\fcharset1 \fnil Times New Roman;}
+{\f1\fcharset1 Courier New;}
+}
+{\colortbl
+\red0\green0\blue0;
+\red128\green0\blue0;
+\red0\green128\blue0;
+}
+
+{\plain 
+{\f1 {\fs20 
+{\cf0 {\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 package}}}}{\cf0  object;{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  java.awt.event.MouseEvent;}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  java.awt.event.MouseListener;{\line 
+}{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 public}}}}{\cf0  }{\b 
+{\cf1 class}}{\cf0  PlaygroundMouseListener }{\b 
+{\cf1 implements}}{\cf0  MouseListener \{{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 private}}{\cf0  Playground p;{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 public}}{\cf0  PlaygroundMouseListener(Playground p) \{}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 super}}{\cf0 ();}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 this}}{\cf0 .p = p;}{\line 
+}{\f1 {\fs20 
+{\cf0     \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  mouseClicked(MouseEvent e) \{}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 int}}{\cf0  posX, posY;}{\line 
+}{\f1 {\fs20 
+{\cf0         posX = e.getX()/p.getSizeCase();}}}{\line 
+}{\f1 {\fs20 
+{\cf0         posY = e.getY()/p.getSizeCase();}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\i 
+{\cf2 //System.out.println("Invert Case: [" + posX + "," + posY + "]");}}{\line 
+}{\f1 {\fs20 
+{\cf0         p.invertCase(posX*p.getSizeCase(), posY*p.getSizeCase());}}}{\line 
+}{\f1 {\fs20 
+{\cf0         p.repaint();{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  mousePressed(MouseEvent e) \{\}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  mouseReleased(MouseEvent arg0) \{\}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  mouseEntered(MouseEvent arg0) \{\}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  mouseExited(MouseEvent arg0) \{\}{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0 \}}}}}}}}}

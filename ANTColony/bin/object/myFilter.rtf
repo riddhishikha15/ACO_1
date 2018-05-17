@@ -1,0 +1,116 @@
+{\rtf1\ansi {\fonttbl
+{\f0\fcharset1 \fnil Times New Roman;}
+{\f1\fcharset1 Courier New;}
+}
+{\colortbl
+\red0\green0\blue0;
+\red128\green0\blue0;
+\red0\green0\blue255;
+\red0\green128\blue0;
+}
+
+{\plain 
+{\f1 {\fs20 
+{\cf0 {\f1 {\fs20 
+{\b 
+{\cf1 package}}}}{\cf0  object;{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  java.io.File;}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  javax.swing.filechooser.FileFilter;{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 public}}}}{\cf0  }{\b 
+{\cf1 class}}{\cf0  MyFilter }{\b 
+{\cf1 extends}}{\cf0  FileFilter \{{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0     String []lesSuffixes;}}}{\line 
+}{\f1 {\fs20 
+{\cf0     String  laDescription;{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0    }}}{\b 
+{\cf1 public}}{\cf0  MyFilter(String []lesSuffixes, String laDescription)\{}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 this}}{\cf0 .lesSuffixes = lesSuffixes;}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 this}}{\cf0 .laDescription = laDescription;}{\line 
+}{\f1 {\fs20 
+{\cf0    \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0    }}}{\b 
+{\cf1 boolean}}{\cf0  appartient( String suffixe )\{}{\line 
+}{\f1 {\fs20 
+{\cf0       }}}{\b 
+{\cf1 for}}{\cf0 ( }{\b 
+{\cf1 int}}{\cf0  i = 0; i<lesSuffixes.length; ++i)\{}{\line 
+}{\f1 {\fs20 
+{\cf0           }}}{\b 
+{\cf1 if}}{\cf0 (suffixe.equals(lesSuffixes[i])) }{\b 
+{\cf1 return}}{\cf0  }{\b 
+{\cf1 true}}{\cf0 ;}{\line 
+}{\f1 {\fs20 
+{\cf0       \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0       }}}{\b 
+{\cf1 return}}{\cf0  }{\b 
+{\cf1 false}}{\cf0 ;}{\line 
+}{\f1 {\fs20 
+{\cf0    \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0    }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 boolean}}{\cf0  accept(File f) \{}{\line 
+}{\f1 {\fs20 
+{\cf0      }}}{\b 
+{\cf1 if}}{\cf0  (f.isDirectory()) \{}{\line 
+}{\f1 {\fs20 
+{\cf0          }}}{\b 
+{\cf1 return}}{\cf0  }{\b 
+{\cf1 true}}{\cf0 ;}{\line 
+}{\f1 {\fs20 
+{\cf0      \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0      String suffixe = }}}{\b 
+{\cf1 null}}{\cf0 ;}{\line 
+}{\f1 {\fs20 
+{\cf0      String s = f.getName();}}}{\line 
+}{\f1 {\fs20 
+{\cf0      }}}{\b 
+{\cf1 int}}{\cf0  i = s.lastIndexOf(}{\cf2 '.'}{\cf0 );}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 if}}{\cf0  (i > 0 &&  i < s.length() - 1) \{}{\line 
+}{\f1 {\fs20 
+{\cf0          suffixe = s.substring(i+1).toLowerCase();}}}{\line 
+}{\f1 {\fs20 
+{\cf0      \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0      }}}{\b 
+{\cf1 return}}{\cf0  suffixe != }{\b 
+{\cf1 null}}{\cf0  && appartient(suffixe);}{\line 
+}{\f1 {\fs20 
+{\cf0    \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0    }}}{\i 
+{\cf3 // la description du filtre}}{\line 
+}{\f1 {\fs20 
+{\cf0    }}}{\b 
+{\cf1 public}}{\cf0  String getDescription() \{}{\line 
+}{\f1 {\fs20 
+{\cf0        }}}{\b 
+{\cf1 return}}{\cf0  laDescription;}{\line 
+}{\f1 {\fs20 
+{\cf0    \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0 \}}}}}}}}}

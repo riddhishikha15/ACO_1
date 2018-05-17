@@ -1,0 +1,1296 @@
+{\rtf1\ansi {\fonttbl
+{\f0\fcharset1 \fnil Times New Roman;}
+{\f1\fcharset1 Courier New;}
+}
+{\colortbl
+\red0\green0\blue0;
+\red128\green0\blue0;
+\red0\green128\blue0;
+\red0\green0\blue255;
+}
+
+{\plain 
+{\f1 {\fs20 
+{\cf0 {\f1 {\fs20 
+{\b 
+{\cf1 package}}}}{\cf0  object;}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  java.awt.Color;}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  java.awt.Graphics;}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  java.util.Random;{\line 
+}{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 public}}}}{\cf0  }{\b 
+{\cf1 class}}{\cf0  Ant \{{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 private}}{\cf0  }{\b 
+{\cf1 boolean}}{\cf0  goal, tired;}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 private}}{\cf0  }{\b 
+{\cf1 int}}{\cf0  posX, posY, move;}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 private}}{\cf0  }{\b 
+{\cf1 int}}{\cf0 [] position, lastPosition;{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 private}}{\cf0  }{\b 
+{\cf1 static}}{\cf0  }{\b 
+{\cf1 int}}{\cf0  tryToMove = 7;                        }{\i 
+{\cf2 // Number of tries to find the best next position \{8\}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 private}}{\cf0  }{\b 
+{\cf1 static}}{\cf0  }{\b 
+{\cf1 int}}{\cf0  endurance = 80;                        }{\i 
+{\cf2 // Number of moves before the ant get tired \{80\}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 private}}{\cf0  }{\b 
+{\cf1 static}}{\cf0  }{\b 
+{\cf1 double}}{\cf0  coefFoodToHome = }{\cf2 1.2}{\cf0 ;        }{\i 
+{\cf2 // Privileges the Back amount over the Away amount \{2\}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 private}}{\cf0  }{\b 
+{\cf1 static}}{\cf0  }{\b 
+{\cf1 double}}{\cf0  coefHomeToFood = 2;        }{\i 
+{\cf2 // Privileges the Away amount over the Back amount \{2\}{\line 
+}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 public}}{\cf0  Ant()\{}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 this}}{\cf0 .posX = 0;}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 this}}{\cf0 .posY = 0;}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 this}}{\cf0 .lastPosition = }{\b 
+{\cf1 new}}{\cf0  }{\b 
+{\cf1 int}}{\cf0 [2];}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 this}}{\cf0 .goal = }{\b 
+{\cf1 false}}{\cf0 ;}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 this}}{\cf0 .tired = }{\b 
+{\cf1 false}}{\cf0 ;}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 this}}{\cf0 .move = 0;}{\line 
+}{\f1 {\fs20 
+{\cf0         \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\i 
+{\cf2 /*}}{\line 
+}{\f1 {\fs20 
+{\i 
+{\cf2          * Allow the ants to draw themselves}}}}{\line 
+}{\f1 {\fs20 
+{\i 
+{\cf2          */}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  draw(Graphics g, Playground p) \{}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 if}}{\cf0 (}{\b 
+{\cf1 this}}{\cf0 .getGoal())\{}{\line 
+}{\f1 {\fs20 
+{\cf0                     }}}{\b 
+{\cf1 if}}{\cf0 (}{\b 
+{\cf1 this}}{\cf0 .getTired())}{\line 
+}{\f1 {\fs20 
+{\cf0                         g.setColor(Color.CYAN);}}}{\line 
+}{\f1 {\fs20 
+{\cf0                     }}}{\b 
+{\cf1 else}}{\cf0  g.setColor(Color.BLUE);}{\line 
+}{\f1 {\fs20 
+{\cf0                 \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 else}}{\cf0  \{}{\line 
+}{\f1 {\fs20 
+{\cf0                     }}}{\b 
+{\cf1 if}}{\cf0 (}{\b 
+{\cf1 this}}{\cf0 .getTired())}{\line 
+}{\f1 {\fs20 
+{\cf0                         g.setColor(Color.YELLOW);}}}{\line 
+}{\f1 {\fs20 
+{\cf0                     }}}{\b 
+{\cf1 else}}{\cf0  g.setColor(Color.ORANGE);}{\line 
+}{\f1 {\fs20 
+{\cf0                 \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 int}}{\cf0  x = (}{\b 
+{\cf1 int}}{\cf0 )(p.getSizeCase()/2);}{\line 
+}{\f1 {\fs20 
+{\cf0                 g.fillOval(posX, posY, p.getSizeCase(), p.getSizeCase());}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 g.setColor(Color.BLACK);}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 g.fillOval(posX + x-1, posY + x-1, x, x);}}}{\line 
+}{\f1 {\fs20 
+{\cf0         \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\i 
+{\cf2 /*}}{\line 
+}{\f1 {\fs20 
+{\i 
+{\cf2          * Generate a new position inside the playground on a valid case}}}}{\line 
+}{\f1 {\fs20 
+{\i 
+{\cf2          */}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  moveStraightIn(}{\b 
+{\cf1 int}}{\cf0  x, }{\b 
+{\cf1 int}}{\cf0  y, Playground p)\{}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 int}}{\cf0 [] newPos = }{\b 
+{\cf1 new}}{\cf0  }{\b 
+{\cf1 int}}{\cf0 [2];}{\line 
+}{\f1 {\fs20 
+{\cf0             newPos = getRandomMoveInStraight(x,y,p);}}}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 this}}{\cf0 .setPosition(newPos[0], newPos[1]);}{\line 
+}{\f1 {\fs20 
+{\cf0         \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\i 
+{\cf2 /*}}{\line 
+}{\f1 {\fs20 
+{\i 
+{\cf2          * Set a position where there is no trace like the one I add}}}}{\line 
+}{\f1 {\fs20 
+{\i 
+{\cf2          */}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  moveStraightAwayFromMyTrace(}{\b 
+{\cf1 int}}{\cf0  x, }{\b 
+{\cf1 int}}{\cf0  y, Playground p)\{}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 int}}{\cf0  [] newTry = }{\b 
+{\cf1 new}}{\cf0  }{\b 
+{\cf1 int}}{\cf0 [2];}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 int}}{\cf0  count = 0;}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 do}}{\cf0 \{}{\line 
+}{\f1 {\fs20 
+{\cf0                         newTry = getRandomMoveInStraight(x,y,p);}}}{\line 
+}{\f1 {\fs20 
+{\cf0                         }}}{\b 
+{\cf1 if}}{\cf0 (count++ > tryToMove) }{\b 
+{\cf1 break}}{\cf0 ;}{\line 
+}{\f1 {\fs20 
+{\cf0                 \}}}}{\b 
+{\cf1 while}}{\cf0 (isMyTrace(newTry[0], newTry[1], p));}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 this}}{\cf0 .setPosition(newTry[0], newTry[1]);}{\line 
+}{\f1 {\fs20 
+{\cf0         \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\i 
+{\cf2 /*}}{\line 
+}{\f1 {\fs20 
+{\i 
+{\cf2          * Set a position where there is no Away trace}}}}{\line 
+}{\f1 {\fs20 
+{\i 
+{\cf2          */}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  moveStraightAwayFromAway(}{\b 
+{\cf1 int}}{\cf0  x, }{\b 
+{\cf1 int}}{\cf0  y, Playground p)\{}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 int}}{\cf0  [] newTry = }{\b 
+{\cf1 new}}{\cf0  }{\b 
+{\cf1 int}}{\cf0 [2];}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 int}}{\cf0  count = 0;}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 do}}{\cf0 \{}{\line 
+}{\f1 {\fs20 
+{\cf0                         newTry = getRandomMoveInStraight(x,y,p);}}}{\line 
+}{\f1 {\fs20 
+{\cf0                         }}}{\b 
+{\cf1 if}}{\cf0 (count++ > tryToMove) }{\b 
+{\cf1 break}}{\cf0 ;}{\line 
+}{\f1 {\fs20 
+{\cf0                 \} }}}{\b 
+{\cf1 while}}{\cf0 (isTraceAway(newTry[0], newTry[1], p));}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 this}}{\cf0 .setPosition(newTry[0], newTry[1]);}{\line 
+}{\f1 {\fs20 
+{\cf0         \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\i 
+{\cf2 /*}}{\line 
+}{\f1 {\fs20 
+{\i 
+{\cf2          * Set a position where there is no Back trace}}}}{\line 
+}{\f1 {\fs20 
+{\i 
+{\cf2          */}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  moveStraightAwayFromBack(}{\b 
+{\cf1 int}}{\cf0  x, }{\b 
+{\cf1 int}}{\cf0  y, Playground p)\{}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 int}}{\cf0  [] newTry = }{\b 
+{\cf1 new}}{\cf0  }{\b 
+{\cf1 int}}{\cf0 [2];}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 int}}{\cf0  count = 0;}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 boolean}}{\cf0  moveNotFound = }{\b 
+{\cf1 false}}{\cf0 ;}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 do}}{\cf0 \{}{\line 
+}{\f1 {\fs20 
+{\cf0                         newTry = getRandomMoveInStraight(x,y,p);}}}{\line 
+}{\f1 {\fs20 
+{\cf0                         }}}{\b 
+{\cf1 if}}{\cf0 (count++ > tryToMove)\{}{\line 
+}{\f1 {\fs20 
+{\cf0                             moveNotFound = }}}{\b 
+{\cf1 true}}{\cf0 ;}{\line 
+}{\f1 {\fs20 
+{\cf0                             }}}{\b 
+{\cf1 break}}{\cf0 ;}{\line 
+}{\f1 {\fs20 
+{\cf0                         \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 while}}{\cf0 (isTraceBack(newTry[0], newTry[1], p));}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 if}}{\cf0 (moveNotFound)}{\line 
+}{\f1 {\fs20 
+{\cf0                     }}}{\b 
+{\cf1 this}}{\cf0 .moveStraightIn(x,y,p);}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 this}}{\cf0 .setPosition(newTry[0], newTry[1]);}{\line 
+}{\f1 {\fs20 
+{\cf0         \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\i 
+{\cf2 /*}}{\line 
+}{\f1 {\fs20 
+{\i 
+{\cf2          * Set a new position where there is no trace}}}}{\line 
+}{\f1 {\fs20 
+{\i 
+{\cf2          */}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  moveStraightAwayFromAnyTrace(}{\b 
+{\cf1 int}}{\cf0  x, }{\b 
+{\cf1 int}}{\cf0  y, Playground p)\{}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 int}}{\cf0  [] newTry = }{\b 
+{\cf1 new}}{\cf0  }{\b 
+{\cf1 int}}{\cf0 [2];}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 int}}{\cf0  count = 0;}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 do}}{\cf0 \{}{\line 
+}{\f1 {\fs20 
+{\cf0                         newTry = getRandomMoveInStraight(x,y,p);}}}{\line 
+}{\f1 {\fs20 
+{\cf0                         }}}{\b 
+{\cf1 if}}{\cf0 (count++ > tryToMove) }{\b 
+{\cf1 break}}{\cf0 ;}{\line 
+}{\f1 {\fs20 
+{\cf0                 \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 while}}{\cf0 (isAnyTrace(newTry[0], newTry[1], p));}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 this}}{\cf0 .setPosition(newTry[0], newTry[1]);}{\line 
+}{\f1 {\fs20 
+{\cf0         \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\i 
+{\cf2 /*}}{\line 
+}{\f1 {\fs20 
+{\i 
+{\cf2          * Set a new position according to the traces and coefFoodToHome's value}}}}{\line 
+}{\f1 {\fs20 
+{\i 
+{\cf2          */}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  moveFromFoodToHomeRepartition(}{\b 
+{\cf1 int}}{\cf0  x, }{\b 
+{\cf1 int}}{\cf0  y, Playground p)\{}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 int}}{\cf0  sizeCase = p.getSizeCase();}{\line 
+}{\f1 {\fs20 
+{\cf0             Traces t;}}}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 int}}{\cf0  count = 0;}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 double}}{\cf0  value = 0, max = 0;}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 int}}{\cf0 [] newPos = }{\b 
+{\cf1 new}}{\cf0  }{\b 
+{\cf1 int}}{\cf0 [2];}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 int}}{\cf0 [] tryNewPos = }{\b 
+{\cf1 new}}{\cf0  }{\b 
+{\cf1 int}}{\cf0 [2];{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 do}}{\cf0 \{}{\line 
+}{\f1 {\fs20 
+{\cf0                 tryNewPos = getRandomMoveInStraight(x,y,p);}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 count++;}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 t = p.getTrace()[tryNewPos[0]][tryNewPos[1]];}}}{\line 
+}{\f1 {\fs20 
+{\cf0             value = t.getAway() * coefFoodToHome - t.getBack();}}}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 if}}{\cf0 ((value > max)&&(!isLastPosition(tryNewPos[0], tryNewPos[1])))\{}{\line 
+}{\f1 {\fs20 
+{\cf0                 max = value;}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 newPos = tryNewPos;}}}{\line 
+}{\f1 {\fs20 
+{\cf0             \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0             \} }}}{\b 
+{\cf1 while}}{\cf0 (count < tryToMove);{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 if}}{\cf0 ((newPos[0] == 0)&&(newPos[1] == 0))}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 this}}{\cf0 .moveStraightAwayFromBack(x,y,p);}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 else}}{\cf0  }{\b 
+{\cf1 this}}{\cf0 .setPosition(newPos[0], newPos[1]);}{\line 
+}{\f1 {\fs20 
+{\cf0         \}{\line 
+}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\i 
+{\cf2 /*}}{\line 
+}{\f1 {\fs20 
+{\i 
+{\cf2          * Using random tries, get the best path from home to food according to coefHomeToFood's value}}}}{\line 
+}{\f1 {\fs20 
+{\i 
+{\cf2          */}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  moveFromHomeToFoodRepartition(}{\b 
+{\cf1 int}}{\cf0  x, }{\b 
+{\cf1 int}}{\cf0  y, Playground p)\{}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 int}}{\cf0  sizeCase = p.getSizeCase();}{\line 
+}{\f1 {\fs20 
+{\cf0             Traces t;}}}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 int}}{\cf0  count = 0;}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 double}}{\cf0  max = 0, value = 0;}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 int}}{\cf0 [] newPos = }{\b 
+{\cf1 new}}{\cf0  }{\b 
+{\cf1 int}}{\cf0 [2];}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 int}}{\cf0 [] tryNewPos = }{\b 
+{\cf1 new}}{\cf0  }{\b 
+{\cf1 int}}{\cf0 [2];{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 do}}{\cf0 \{}{\line 
+}{\f1 {\fs20 
+{\cf0                 tryNewPos = getRandomMoveInStraight(x,y,p);}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 count++;}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 t = p.getTrace()[tryNewPos[0]][tryNewPos[1]];}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 value = t.getBack() * coefHomeToFood - t.getAway();}}}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 if}}{\cf0 ((value > max)&&(!isLastPosition(tryNewPos[0], tryNewPos[1])))\{}{\line 
+}{\f1 {\fs20 
+{\cf0                 max = value;}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 newPos = tryNewPos;}}}{\line 
+}{\f1 {\fs20 
+{\cf0             \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0             \} }}}{\b 
+{\cf1 while}}{\cf0 (count < tryToMove);{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 if}}{\cf0 ((newPos[0] == 0)&&(newPos[1] == 0))\{}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\i 
+{\cf2 //System.out.println("Failed to find the best path.");}}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 this}}{\cf0 .moveStraightAwayFromAway(x,y,p);}{\line 
+}{\f1 {\fs20 
+{\cf0             \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 else}}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 this}}{\cf0 .setPosition(newPos[0], newPos[1]);}{\line 
+}{\f1 {\fs20 
+{\cf0         \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\i 
+{\cf2 /*}}{\line 
+}{\f1 {\fs20 
+{\i 
+{\cf2          * Set a new position where the combined traces are more}}}}{\line 
+}{\f1 {\fs20 
+{\i 
+{\cf2          */}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  moveTowardAllTrace(}{\b 
+{\cf1 int}}{\cf0  x, }{\b 
+{\cf1 int}}{\cf0  y, Playground p) \{}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 int}}{\cf0  sizeCase = p.getSizeCase();}{\line 
+}{\f1 {\fs20 
+{\cf0             Traces t;}}}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 int}}{\cf0  count = 0, max = 0, value = 0;}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 int}}{\cf0 [] newPos = }{\b 
+{\cf1 new}}{\cf0  }{\b 
+{\cf1 int}}{\cf0 [2];}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 for}}{\cf0 (}{\b 
+{\cf1 int}}{\cf0  i=x-sizeCase; i<x+2*sizeCase; i+=sizeCase)\{}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 for}}{\cf0 (}{\b 
+{\cf1 int}}{\cf0  j=y-sizeCase; j<y+2*sizeCase; j+=sizeCase)\{}{\line 
+}{\f1 {\fs20 
+{\cf0                     }}}{\b 
+{\cf1 if}}{\cf0 (isInside(i,j,p))\{}{\line 
+}{\f1 {\fs20 
+{\cf0                             }}}{\b 
+{\cf1 if}}{\cf0 (Math.abs((i-x)/sizeCase) + Math.abs((j-y)/sizeCase) == 1)\{}{\line 
+}{\f1 {\fs20 
+{\cf0                                 count++;}}}{\line 
+}{\f1 {\fs20 
+{\cf0                                 t = p.getTrace()[i][j];}}}{\line 
+}{\f1 {\fs20 
+{\cf0                                 value = t.getBack() + t.getAway();}}}{\line 
+}{\f1 {\fs20 
+{\cf0                                 }}}{\b 
+{\cf1 if}}{\cf0 (value > max)\{}{\line 
+}{\f1 {\fs20 
+{\cf0                                     max = value;}}}{\line 
+}{\f1 {\fs20 
+{\cf0                                     newPos[0] = i;}}}{\line 
+}{\f1 {\fs20 
+{\cf0                                     newPos[1] = j;}}}{\line 
+}{\f1 {\fs20 
+{\cf0                                 \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                             \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                     \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0             \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 if}}{\cf0 ((count == 2)||(isLastPosition(newPos[0], newPos[1])) || (newPos[0] == 0)&&(newPos[1] == 0))\{}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 do}}{\cf0 \{}{\line 
+}{\f1 {\fs20 
+{\cf0                     newPos = getRandomMoveInStraight(x,y,p);}}}{\line 
+}{\f1 {\fs20 
+{\cf0                     count++;}}}{\line 
+}{\f1 {\fs20 
+{\cf0                     }}}{\b 
+{\cf1 if}}{\cf0 (count>tryToMove) }{\b 
+{\cf1 break}}{\cf0 ;}{\line 
+}{\f1 {\fs20 
+{\cf0                 \} }}}{\b 
+{\cf1 while}}{\cf0  (isLastPosition(newPos[0], newPos[1]));}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 this}}{\cf0 .setPosition(newPos[0], newPos[1]);}{\line 
+}{\f1 {\fs20 
+{\cf0             \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 else}}{\cf0 \{}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 this}}{\cf0 .setPosition(newPos[0], newPos[1]);}{\line 
+}{\f1 {\fs20 
+{\cf0             \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\i 
+{\cf2 /*}}{\line 
+}{\f1 {\fs20 
+{\i 
+{\cf2          * Set a new position where away traces are more}}}}{\line 
+}{\f1 {\fs20 
+{\i 
+{\cf2          */}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  moveTowardAway(}{\b 
+{\cf1 int}}{\cf0  x, }{\b 
+{\cf1 int}}{\cf0  y, Playground p) \{}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 int}}{\cf0  sizeCase = p.getSizeCase();}{\line 
+}{\f1 {\fs20 
+{\cf0             Traces t;}}}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 int}}{\cf0  count = 0, max = 0, value = 0;}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 int}}{\cf0 [] newPos = }{\b 
+{\cf1 new}}{\cf0  }{\b 
+{\cf1 int}}{\cf0 [2];}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 for}}{\cf0 (}{\b 
+{\cf1 int}}{\cf0  i=x-sizeCase; i<x+2*sizeCase; i+=sizeCase)\{}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 for}}{\cf0 (}{\b 
+{\cf1 int}}{\cf0  j=y-sizeCase; j<y+2*sizeCase; j+=sizeCase)\{}{\line 
+}{\f1 {\fs20 
+{\cf0                     }}}{\b 
+{\cf1 if}}{\cf0 (isInside(i,j,p))\{}{\line 
+}{\f1 {\fs20 
+{\cf0                             }}}{\b 
+{\cf1 if}}{\cf0 (Math.abs((i-x)/sizeCase) + Math.abs((j-y)/sizeCase) == 1)\{}{\line 
+}{\f1 {\fs20 
+{\cf0                                 count++;}}}{\line 
+}{\f1 {\fs20 
+{\cf0                                 t = p.getTrace()[i][j];}}}{\line 
+}{\f1 {\fs20 
+{\cf0                                 value = t.getAway();}}}{\line 
+}{\f1 {\fs20 
+{\cf0                                 }}}{\b 
+{\cf1 if}}{\cf0 (value > max)\{}{\line 
+}{\f1 {\fs20 
+{\cf0                                     max = value;}}}{\line 
+}{\f1 {\fs20 
+{\cf0                                     newPos[0] = i;}}}{\line 
+}{\f1 {\fs20 
+{\cf0                                     newPos[1] = j;}}}{\line 
+}{\f1 {\fs20 
+{\cf0                                 \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                             \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                     \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0             \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 if}}{\cf0 ((isLastPosition(newPos[0], newPos[1])) || (newPos[0] == 0)&&(newPos[1] == 0))\{}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 do}}{\cf0 \{}{\line 
+}{\f1 {\fs20 
+{\cf0                     newPos = getRandomMoveInStraight(x,y,p);}}}{\line 
+}{\f1 {\fs20 
+{\cf0                     count++;}}}{\line 
+}{\f1 {\fs20 
+{\cf0                     }}}{\b 
+{\cf1 if}}{\cf0 (count>tryToMove) }{\b 
+{\cf1 break}}{\cf0 ;}{\line 
+}{\f1 {\fs20 
+{\cf0                 \} }}}{\b 
+{\cf1 while}}{\cf0  (isLastPosition(newPos[0], newPos[1]));}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 this}}{\cf0 .setPosition(newPos[0], newPos[1]);}{\line 
+}{\f1 {\fs20 
+{\cf0             \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 else}}{\cf0 \{}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 this}}{\cf0 .setPosition(newPos[0], newPos[1]);}{\line 
+}{\f1 {\fs20 
+{\cf0             \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\i 
+{\cf2 /*}}{\line 
+}{\f1 {\fs20 
+{\i 
+{\cf2      * Set a new position where back traces are more}}}}{\line 
+}{\f1 {\fs20 
+{\i 
+{\cf2      */}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  moveTowardBack(}{\b 
+{\cf1 int}}{\cf0  x, }{\b 
+{\cf1 int}}{\cf0  y, Playground p) \{}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 int}}{\cf0  sizeCase = p.getSizeCase();}{\line 
+}{\f1 {\fs20 
+{\cf0             Traces t;}}}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 int}}{\cf0  count = 0, max = 0, value = 0;}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 int}}{\cf0 [] newPos = }{\b 
+{\cf1 new}}{\cf0  }{\b 
+{\cf1 int}}{\cf0 [2];}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 for}}{\cf0 (}{\b 
+{\cf1 int}}{\cf0  i=x-sizeCase; i<x+2*sizeCase; i+=sizeCase)\{}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 for}}{\cf0 (}{\b 
+{\cf1 int}}{\cf0  j=y-sizeCase; j<y+2*sizeCase; j+=sizeCase)\{}{\line 
+}{\f1 {\fs20 
+{\cf0                     }}}{\b 
+{\cf1 if}}{\cf0 (isInside(i,j,p))\{}{\line 
+}{\f1 {\fs20 
+{\cf0                             }}}{\b 
+{\cf1 if}}{\cf0 (Math.abs((i-x)/sizeCase) + Math.abs((j-y)/sizeCase) == 1)\{}{\line 
+}{\f1 {\fs20 
+{\cf0                                 count++;}}}{\line 
+}{\f1 {\fs20 
+{\cf0                                 t = p.getTrace()[i][j];}}}{\line 
+}{\f1 {\fs20 
+{\cf0                                 value = t.getBack();}}}{\line 
+}{\f1 {\fs20 
+{\cf0                                 }}}{\b 
+{\cf1 if}}{\cf0 (value > max)\{}{\line 
+}{\f1 {\fs20 
+{\cf0                                     max = value;}}}{\line 
+}{\f1 {\fs20 
+{\cf0                                     newPos[0] = i;}}}{\line 
+}{\f1 {\fs20 
+{\cf0                                     newPos[1] = j;}}}{\line 
+}{\f1 {\fs20 
+{\cf0                                 \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                             \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                     \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0             \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 if}}{\cf0 ((count == 2)||(isLastPosition(newPos[0], newPos[1])) || (newPos[0] == 0)&&(newPos[1] == 0))\{}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 do}}{\cf0 \{}{\line 
+}{\f1 {\fs20 
+{\cf0                     newPos = getRandomMoveInStraight(x,y,p);}}}{\line 
+}{\f1 {\fs20 
+{\cf0                     count++;}}}{\line 
+}{\f1 {\fs20 
+{\cf0                     }}}{\b 
+{\cf1 if}}{\cf0 (count>tryToMove) }{\b 
+{\cf1 break}}{\cf0 ;}{\line 
+}{\f1 {\fs20 
+{\cf0                 \} }}}{\b 
+{\cf1 while}}{\cf0  (isLastPosition(newPos[0], newPos[1]));}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 this}}{\cf0 .setPosition(newPos[0], newPos[1]);}{\line 
+}{\f1 {\fs20 
+{\cf0             \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 else}}{\cf0 \{}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 this}}{\cf0 .setPosition(newPos[0], newPos[1]);}{\line 
+}{\f1 {\fs20 
+{\cf0             \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\i 
+{\cf2 /*}}{\line 
+}{\f1 {\fs20 
+{\i 
+{\cf2      * Return the value of traces [away, back] of the position (x,y)}}}}{\line 
+}{\f1 {\fs20 
+{\i 
+{\cf2      */}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 private}}{\cf0  }{\b 
+{\cf1 int}}{\cf0 [] getDensity(}{\b 
+{\cf1 int}}{\cf0  x, }{\b 
+{\cf1 int}}{\cf0  y, Playground p)\{}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 int}}{\cf0  sizeCase;}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 int}}{\cf0 [] value = }{\b 
+{\cf1 new}}{\cf0  }{\b 
+{\cf1 int}}{\cf0 [2];}{\line 
+}{\f1 {\fs20 
+{\cf0             Traces t;}}}{\line 
+}{\f1 {\fs20 
+{\cf0             sizeCase = p.getSizeCase();}}}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 for}}{\cf0 (}{\b 
+{\cf1 int}}{\cf0  i=x-sizeCase; i<x+2*sizeCase; i = i + sizeCase)\{}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 for}}{\cf0 (}{\b 
+{\cf1 int}}{\cf0  j=y-sizeCase; j<y+2*sizeCase; j = j + sizeCase)\{}{\line 
+}{\f1 {\fs20 
+{\cf0                     }}}{\b 
+{\cf1 if}}{\cf0 (isInside(i,j,p))\{}{\line 
+}{\f1 {\fs20 
+{\cf0                         t = p.getTrace()[i][j];}}}{\line 
+}{\f1 {\fs20 
+{\cf0                         value[0] = t.getAway();}}}{\line 
+}{\f1 {\fs20 
+{\cf0                         value[1] = t.getBack();}}}{\line 
+}{\f1 {\fs20 
+{\cf0                     \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0             \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 return}}{\cf0  value;}{\line 
+}{\f1 {\fs20 
+{\cf0         \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 private}}{\cf0  }{\b 
+{\cf1 boolean}}{\cf0  isTraceAway(}{\b 
+{\cf1 int}}{\cf0  x, }{\b 
+{\cf1 int}}{\cf0  y, Playground p)\{}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 boolean}}{\cf0  trace = }{\b 
+{\cf1 true}}{\cf0 ;}{\line 
+}{\f1 {\fs20 
+{\cf0                 Traces t = p.getTrace()[x][y];}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 if}}{\cf0 (t.getAway()==0) trace = }{\b 
+{\cf1 false}}{\cf0 ;}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 return}}{\cf0  trace;}{\line 
+}{\f1 {\fs20 
+{\cf0         \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 private}}{\cf0  }{\b 
+{\cf1 boolean}}{\cf0  isTraceBack(}{\b 
+{\cf1 int}}{\cf0  x, }{\b 
+{\cf1 int}}{\cf0  y, Playground p)\{}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 boolean}}{\cf0  trace = }{\b 
+{\cf1 true}}{\cf0 ;}{\line 
+}{\f1 {\fs20 
+{\cf0                 Traces t = p.getTrace()[x][y];}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 if}}{\cf0 (t.getBack()==0) trace = }{\b 
+{\cf1 false}}{\cf0 ;}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 return}}{\cf0  trace;}{\line 
+}{\f1 {\fs20 
+{\cf0         \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 private}}{\cf0  }{\b 
+{\cf1 boolean}}{\cf0  isAnyTrace(}{\b 
+{\cf1 int}}{\cf0  x, }{\b 
+{\cf1 int}}{\cf0  y, Playground p)\{}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 boolean}}{\cf0  trace = }{\b 
+{\cf1 true}}{\cf0 ;}{\line 
+}{\f1 {\fs20 
+{\cf0                 Traces t = p.getTrace()[x][y];}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 if}}{\cf0 ((t.getBack()==0)&&(t.getAway() == 0)) trace = }{\b 
+{\cf1 false}}{\cf0 ;}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 return}}{\cf0  trace;}{\line 
+}{\f1 {\fs20 
+{\cf0         \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 private}}{\cf0  }{\b 
+{\cf1 boolean}}{\cf0  isMyTrace(}{\b 
+{\cf1 int}}{\cf0  x, }{\b 
+{\cf1 int}}{\cf0  y, Playground p)\{}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 boolean}}{\cf0  trace = }{\b 
+{\cf1 true}}{\cf0 ;}{\line 
+}{\f1 {\fs20 
+{\cf0             Traces t = p.getTrace()[x][y];}}}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 if}}{\cf0 ((}{\b 
+{\cf1 this}}{\cf0 .goal) && (t.getBack()==0)) trace = }{\b 
+{\cf1 false}}{\cf0 ;}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 if}}{\cf0 ((!}{\b 
+{\cf1 this}}{\cf0 .goal) && (t.getAway()==0)) trace = }{\b 
+{\cf1 false}}{\cf0 ;}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 return}}{\cf0  trace;}{\line 
+}{\f1 {\fs20 
+{\cf0         \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\i 
+{\cf2 /*}}{\line 
+}{\f1 {\fs20 
+{\i 
+{\cf2          * Return a new valid position [x,y]}}}}{\line 
+}{\f1 {\fs20 
+{\i 
+{\cf2          */}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 private}}{\cf0  }{\b 
+{\cf1 int}}{\cf0 [] getRandomMoveInStraight(}{\b 
+{\cf1 int}}{\cf0  x, }{\b 
+{\cf1 int}}{\cf0  y, Playground p)\{}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 int}}{\cf0  sizeCase = p.getSizeCase();}{\line 
+}{\f1 {\fs20 
+{\cf0             Random generator = }}}{\b 
+{\cf1 new}}{\cf0  Random();}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 int}}{\cf0 [] newPos = }{\b 
+{\cf1 new}}{\cf0  }{\b 
+{\cf1 int}}{\cf0 [2];}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 do}}{\cf0 \{}{\line 
+}{\f1 {\fs20 
+{\cf0                     newPos[0] = x + sizeCase * (generator.nextInt(3) - 1);}}}{\line 
+}{\f1 {\fs20 
+{\cf0                     newPos[1] = y + sizeCase * (generator.nextInt(3) - 1);}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 \} }}}{\b 
+{\cf1 while}}{\cf0 ((!isInside(newPos[0], newPos[1], p) || (Math.abs((newPos[0]-x)/sizeCase)+Math.abs((newPos[1]-y)/sizeCase) != 1) || (isLastPosition(newPos[0],newPos[1]))));}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 return}}{\cf0  newPos;}{\line 
+}{\f1 {\fs20 
+{\cf0         \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\i 
+{\cf2 /*}}{\line 
+}{\f1 {\fs20 
+{\i 
+{\cf2          * Return true if the position (x,y) is equal to the last position}}}}{\line 
+}{\f1 {\fs20 
+{\i 
+{\cf2          */}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 private}}{\cf0  }{\b 
+{\cf1 boolean}}{\cf0  isLastPosition(}{\b 
+{\cf1 int}}{\cf0  x, }{\b 
+{\cf1 int}}{\cf0  y)\{}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 if}}{\cf0 ((lastPosition[0]==x)&&(lastPosition[1]==y)) }{\b 
+{\cf1 return}}{\cf0  }{\b 
+{\cf1 true}}{\cf0 ;}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 else}}{\cf0  }{\b 
+{\cf1 return}}{\cf0  }{\b 
+{\cf1 false}}{\cf0 ;}{\line 
+}{\f1 {\fs20 
+{\cf0     \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\i 
+{\cf2 /*}}{\line 
+}{\f1 {\fs20 
+{\i 
+{\cf2          * Return true if the position (x,y) is a valid position}}}}{\line 
+}{\f1 {\fs20 
+{\i 
+{\cf2          */}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 private}}{\cf0  }{\b 
+{\cf1 boolean}}{\cf0  isInside(}{\b 
+{\cf1 int}}{\cf0  x, }{\b 
+{\cf1 int}}{\cf0  y, Playground p)\{}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 boolean}}{\cf0  inside = }{\b 
+{\cf1 true}}{\cf0 ;}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 int}}{\cf0  sizeCase = p.getSizeCase();}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 int}}{\cf0  sizeX = p.getSizeX(), sizeY = p.getSizeY();}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 if}}{\cf0 ((x < sizeCase) || (y < sizeCase) || (x > sizeX - sizeCase) || (y > sizeY - sizeCase)) inside = }{\b 
+{\cf1 false}}{\cf0 ;}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 else}}{\cf0  }{\b 
+{\cf1 if}}{\cf0 (!p.getValidCase(x,y)) inside = }{\b 
+{\cf1 false}}{\cf0 ;}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 return}}{\cf0  inside;}{\line 
+}{\f1 {\fs20 
+{\cf0         \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\i 
+{\cf2 /*}}{\line 
+}{\f1 {\fs20 
+{\i 
+{\cf2          * Give a random position}}}}{\line 
+}{\f1 {\fs20 
+{\i 
+{\cf2          */}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  setRandomPosition(Playground p)\{}{\line 
+}{\f1 {\fs20 
+{\cf0             Random generator = }}}{\b 
+{\cf1 new}}{\cf0  Random();}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 int}}{\cf0  randX =0, randY=0;}{\line 
+}{\f1 {\fs20 
+{\cf0             randX = p.getSizeCase() * (1 + generator.nextInt(p.getSizeOfThePlayground()));}}}{\line 
+}{\f1 {\fs20 
+{\cf0             randY = p.getSizeCase() * (1 + generator.nextInt(p.getSizeOfThePlayground()));}}}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 this}}{\cf0 .setPosition(randX, randY);}{\line 
+}{\f1 {\fs20 
+{\cf0         \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\i 
+{\cf2 /*}}{\line 
+}{\f1 {\fs20 
+{\i 
+{\cf2          * Set the position (x,y)}}}}{\line 
+}{\f1 {\fs20 
+{\i 
+{\cf2          */}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  setPosition(}{\b 
+{\cf1 int}}{\cf0  posX, }{\b 
+{\cf1 int}}{\cf0  posY)\{}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 this}}{\cf0 .lastPosition = getPosition();}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 this}}{\cf0 .posX = posX;}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 this}}{\cf0 .posY = posY;}{\line 
+}{\f1 {\fs20 
+{\cf0         \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\i 
+{\cf2 /*}}{\line 
+}{\f1 {\fs20 
+{\i 
+{\cf2          * Return the position [x,y]}}}}{\line 
+}{\f1 {\fs20 
+{\i 
+{\cf2          */}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 int}}{\cf0  getPosition()[]\{}{\line 
+}{\f1 {\fs20 
+{\cf0                         }}}{\b 
+{\cf1 this}}{\cf0 .position = }{\b 
+{\cf1 new}}{\cf0  }{\b 
+{\cf1 int}}{\cf0 [2];}{\line 
+}{\f1 {\fs20 
+{\cf0                         }}}{\b 
+{\cf1 this}}{\cf0 .position[0] = }{\b 
+{\cf1 this}}{\cf0 .posX;}{\line 
+}{\f1 {\fs20 
+{\cf0                         }}}{\b 
+{\cf1 this}}{\cf0 .position[1] = }{\b 
+{\cf1 this}}{\cf0 .posY;}{\line 
+}{\f1 {\fs20 
+{\cf0                         }}}{\b 
+{\cf1 return}}{\cf0  }{\b 
+{\cf1 this}}{\cf0 .position;}{\line 
+}{\f1 {\fs20 
+{\cf0                 \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  displayPosition()\{}{\line 
+}{\f1 {\fs20 
+{\cf0                         System.out.print(}}}{\cf3 "["}{\cf0  + }{\b 
+{\cf1 this}}{\cf0 .posX + }{\cf3 ","}{\cf0  + }{\b 
+{\cf1 this}}{\cf0 .posY + }{\cf3 "] "}{\cf0 );}{\line 
+}{\f1 {\fs20 
+{\cf0                 \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  saveLastPosition()\{}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 this}}{\cf0 .lastPosition = }{\b 
+{\cf1 this}}{\cf0 .getPosition();}{\line 
+}{\f1 {\fs20 
+{\cf0         \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  setGoal()\{}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 this}}{\cf0 .goal = }{\b 
+{\cf1 true}}{\cf0 ;}{\line 
+}{\f1 {\fs20 
+{\cf0         \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  unsetGoal()\{}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 this}}{\cf0 .goal = }{\b 
+{\cf1 false}}{\cf0 ;}{\line 
+}{\f1 {\fs20 
+{\cf0         \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 boolean}}{\cf0  getGoal()\{}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 return}}{\cf0  goal;}{\line 
+}{\f1 {\fs20 
+{\cf0         \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 int}}{\cf0  getEndurance()\{}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 return}}{\cf0  endurance;}{\line 
+}{\f1 {\fs20 
+{\cf0         \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  addOneMove()\{}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 this}}{\cf0 .move = }{\b 
+{\cf1 this}}{\cf0 .move + 1;}{\line 
+}{\f1 {\fs20 
+{\cf0         \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 int}}{\cf0  getMove()\{}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 return}}{\cf0  }{\b 
+{\cf1 this}}{\cf0 .move;}{\line 
+}{\f1 {\fs20 
+{\cf0         \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  setTired()\{}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 this}}{\cf0 .tired = }{\b 
+{\cf1 true}}{\cf0 ;}{\line 
+}{\f1 {\fs20 
+{\cf0         \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 boolean}}{\cf0  getTired()\{}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 return}}{\cf0  }{\b 
+{\cf1 this}}{\cf0 .tired;}{\line 
+}{\f1 {\fs20 
+{\cf0         \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  unsetTired() \{}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 this}}{\cf0 .tired = }{\b 
+{\cf1 false}}{\cf0 ;}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 this}}{\cf0 .move = 0;}{\line 
+}{\f1 {\fs20 
+{\cf0     \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  resetLastPosition() \{}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 this}}{\cf0 .lastPosition[0] = 0;}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 this}}{\cf0 .lastPosition[1] = 0;}{\line 
+}{\f1 {\fs20 
+{\cf0     \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0    \}}}}}}}}}

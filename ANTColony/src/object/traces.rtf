@@ -1,0 +1,241 @@
+{\rtf1\ansi {\fonttbl
+{\f0\fcharset1 \fnil Times New Roman;}
+{\f1\fcharset1 Courier New;}
+}
+{\colortbl
+\red0\green0\blue0;
+\red128\green0\blue0;
+\red0\green128\blue0;
+\red0\green0\blue255;
+}
+
+{\plain 
+{\f1 {\fs20 
+{\cf0 {\f1 {\fs20 
+{\b 
+{\cf1 package}}}}{\cf0  object;{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  java.awt.Color;}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  java.awt.Graphics;{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 public}}}}{\cf0  }{\b 
+{\cf1 class}}{\cf0  Traces\{{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 private}}{\cf0  }{\b 
+{\cf1 static}}{\cf0  }{\b 
+{\cf1 int}}{\cf0  timeOfLive = 12; }{\i 
+{\cf2 //12}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 private}}{\cf0  }{\b 
+{\cf1 static}}{\cf0  }{\b 
+{\cf1 double}}{\cf0  traceFactor = 0.9;{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 private}}{\cf0  }{\b 
+{\cf1 int}}{\cf0  away, back, age;{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 public}}{\cf0  Traces()\{}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 this}}{\cf0 .away = 0;}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 this}}{\cf0 .back = 0;}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 this}}{\cf0 .age = 0;}{\line 
+}{\f1 {\fs20 
+{\cf0     \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\i 
+{\cf2 /*}}{\line 
+}{\f1 {\fs20 
+{\i 
+{\cf2      * The Traces draw themselves}}}}{\line 
+}{\f1 {\fs20 
+{\i 
+{\cf2      */}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  draw(Graphics g, Playground p, }{\b 
+{\cf1 int}}{\cf0  i, }{\b 
+{\cf1 int}}{\cf0  j) \{{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 if}}{\cf0 ((}{\b 
+{\cf1 this}}{\cf0 .away != 0)||(}{\b 
+{\cf1 this}}{\cf0 .back != 0))\{}{\line 
+}{\f1 {\fs20 
+{\cf0                         g.setColor(}}}{\b 
+{\cf1 this}}{\cf0 .getColor(away, back));}{\line 
+}{\f1 {\fs20 
+{\cf0                         g.fillRoundRect(i, j, p.getSizeCase(), p.getSizeCase(), 2, 2);{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\i 
+{\cf2 /*}}{\line 
+}{\f1 {\fs20 
+{\i 
+{\cf2      * Add one to age, and if too old, remove the trace}}}}{\line 
+}{\f1 {\fs20 
+{\i 
+{\cf2      */}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  toAge()\{}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 this}}{\cf0 .age = }{\b 
+{\cf1 this}}{\cf0 .age + 1;}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 if}}{\cf0 (}{\b 
+{\cf1 this}}{\cf0 .age > timeOfLive)\{}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 if}}{\cf0 (--}{\b 
+{\cf1 this}}{\cf0 .away < 0) }{\b 
+{\cf1 this}}{\cf0 .away = 0;}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 if}}{\cf0 (--}{\b 
+{\cf1 this}}{\cf0 .back < 0) }{\b 
+{\cf1 this}}{\cf0 .back = 0;}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 this}}{\cf0 .age = 0;}{\line 
+}{\f1 {\fs20 
+{\cf0         \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     \}{\line 
+}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 int}}{\cf0  getAway()\{}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 return}}{\cf0  }{\b 
+{\cf1 this}}{\cf0 .away;}{\line 
+}{\f1 {\fs20 
+{\cf0     \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 int}}{\cf0  getBack()\{}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 return}}{\cf0  }{\b 
+{\cf1 this}}{\cf0 .back;}{\line 
+}{\f1 {\fs20 
+{\cf0     \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  addAway()\{}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 this}}{\cf0 .away = }{\b 
+{\cf1 this}}{\cf0 .away + 1;}{\line 
+}{\f1 {\fs20 
+{\cf0     \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  addBack()\{}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 this}}{\cf0 .back = }{\b 
+{\cf1 this}}{\cf0 .back + 1;}{\line 
+}{\f1 {\fs20 
+{\cf0     \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  displayTrace()\{}{\line 
+}{\f1 {\fs20 
+{\cf0         System.out.println(}}}{\cf3 "Away : "}{\cf0  + }{\b 
+{\cf1 this}}{\cf0 .away + }{\cf3 " Back : "}{\cf0  + }{\b 
+{\cf1 this}}{\cf0 .back );}{\line 
+}{\f1 {\fs20 
+{\cf0     \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 private}}{\cf0  Color getColor(}{\b 
+{\cf1 int}}{\cf0  away, }{\b 
+{\cf1 int}}{\cf0  back)\{}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 int}}{\cf0  total, iColorAway, iColorBack, iColorTotal;}{\line 
+}{\f1 {\fs20 
+{\cf0                 Color myColor;}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 if}}{\cf0 (away < 51) iColorAway = 255 - 5 * away;}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 else}}{\cf0  iColorAway = 0;}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 if}}{\cf0 (back < 20) iColorBack = 255 - 12 * back;}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 else}}{\cf0  iColorBack = 0;}{\line 
+}{\f1 {\fs20 
+{\cf0                 total = away + back;}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 if}}{\cf0 (total < 51 ) iColorTotal = 255 - 3 * total;}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 else}}{\cf0  iColorTotal = 0;}{\line 
+}{\f1 {\fs20 
+{\cf0                 myColor = }}}{\b 
+{\cf1 new}}{\cf0  Color(iColorBack, iColorTotal, iColorAway);}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 return}}{\cf0  myColor;}{\line 
+}{\f1 {\fs20 
+{\cf0     \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  reset()\{}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 this}}{\cf0 .away = 0;}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 this}}{\cf0 .back = 0;}{\line 
+}{\f1 {\fs20 
+{\cf0     \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0 \}}}}}}}}}

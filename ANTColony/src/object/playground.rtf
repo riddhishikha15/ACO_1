@@ -1,0 +1,775 @@
+{\rtf1\ansi {\fonttbl
+{\f0\fcharset1 \fnil Times New Roman;}
+{\f1\fcharset1 Courier New;}
+}
+{\colortbl
+\red0\green0\blue0;
+\red128\green0\blue0;
+\red0\green128\blue0;
+\red0\green0\blue255;
+}
+
+{\plain 
+{\f1 {\fs20 
+{\cf0 {\f1 {\fs20 
+{\b 
+{\cf1 package}}}}{\cf0  object;{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  java.awt.Color;}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  java.awt.Dimension;}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  java.awt.Graphics;}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  java.util.Iterator;}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  java.util.LinkedList;}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  java.util.List;}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  javax.swing.JPanel;{\line 
+}{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 public}}}}{\cf0  }{\b 
+{\cf1 class}}{\cf0  Playground }{\b 
+{\cf1 extends}}{\cf0  JPanel }{\b 
+{\cf1 implements}}{\cf0  Runnable  \{{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 private}}{\cf0  }{\b 
+{\cf1 static}}{\cf0  }{\b 
+{\cf1 final}}{\cf0  }{\b 
+{\cf1 long}}{\cf0  serialVersionUID = 1L;{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 private}}{\cf0  }{\b 
+{\cf1 static}}{\cf0  }{\b 
+{\cf1 int}}{\cf0  sizeOfThePlayground = 40;         }{\i 
+{\cf2 // 40}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 private}}{\cf0  }{\b 
+{\cf1 static}}{\cf0  }{\b 
+{\cf1 int}}{\cf0  sizeOfCase = 14;                                }{\i 
+{\cf2 // 14}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 private}}{\cf0  }{\b 
+{\cf1 static}}{\cf0  }{\b 
+{\cf1 int}}{\cf0  startX = 10, startY = 10;        }{\i 
+{\cf2 //10,10}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 private}}{\cf0  }{\b 
+{\cf1 static}}{\cf0  }{\b 
+{\cf1 int}}{\cf0  goalX = 25, goalY = 25;                }{\i 
+{\cf2 // 25,25}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 private}}{\cf0  }{\b 
+{\cf1 static}}{\cf0  }{\b 
+{\cf1 int}}{\cf0  timeOfRound = 150;                        }{\i 
+{\cf2 // in ms, 150}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 private}}{\cf0  }{\b 
+{\cf1 static}}{\cf0  }{\b 
+{\cf1 int}}{\cf0  numberOfAnts = 40;                        }{\i 
+{\cf2 // 40{\line 
+}{\line 
+}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 private}}{\cf0  }{\b 
+{\cf1 int}}{\cf0  sizeX, sizeY;}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 private}}{\cf0  List antColony = }{\b 
+{\cf1 new}}{\cf0  LinkedList();}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 private}}{\cf0  Traces[][] traces;}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 private}}{\cf0  Nodes[][] validCase;}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 private}}{\cf0  }{\b 
+{\cf1 boolean}}{\cf0  goalReached, iRun;}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 private}}{\cf0  }{\b 
+{\cf1 int}}{\cf0  numberOfSuccess, numberOfGoalReached;}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 private}}{\cf0  }{\b 
+{\cf1 int}}{\cf0  paintRefresh = 4, countRefresh=0;{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 public}}{\cf0  Playground()\{{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 this}}{\cf0 .sizeX = sizeOfThePlayground * sizeOfCase;}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 this}}{\cf0 .sizeY = sizeOfThePlayground * sizeOfCase;}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 this}}{\cf0 .goalReached = }{\b 
+{\cf1 false}}{\cf0 ; }{\b 
+{\cf1 this}}{\cf0 .iRun = }{\b 
+{\cf1 false}}{\cf0 ;{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0                 setPreferredSize(}}}{\b 
+{\cf1 new}}{\cf0  Dimension(sizeX,sizeY));}{\line 
+}{\f1 {\fs20 
+{\cf0                 setBackground(Color.WHITE);{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 this}}{\cf0 .addMouseMotionListener(}{\b 
+{\cf1 new}}{\cf0  PlaygroundMouseMotionListener(}{\b 
+{\cf1 this}}{\cf0 ));}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 this}}{\cf0 .addMouseListener(}{\b 
+{\cf1 new}}{\cf0  PlaygroundMouseListener(}{\b 
+{\cf1 this}}{\cf0 ));{\line 
+}{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 this}}{\cf0 .initPlayground();}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 this}}{\cf0 .initTrace();}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 this}}{\cf0 .initAnt();{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0         \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  initPlayground() \{{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 this}}{\cf0 .validCase = }{\b 
+{\cf1 new}}{\cf0  Nodes[}{\b 
+{\cf1 this}}{\cf0 .sizeX + sizeOfCase][}{\b 
+{\cf1 this}}{\cf0 .sizeY + sizeOfCase];}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 for}}{\cf0 (}{\b 
+{\cf1 int}}{\cf0  i=0; i < }{\b 
+{\cf1 this}}{\cf0 .sizeX + sizeOfCase; i++)}{\line 
+}{\f1 {\fs20 
+{\cf0                         }}}{\b 
+{\cf1 for}}{\cf0 (}{\b 
+{\cf1 int}}{\cf0  j=0; j < }{\b 
+{\cf1 this}}{\cf0 .sizeY + sizeOfCase; j++)}{\line 
+}{\f1 {\fs20 
+{\cf0                             }}}{\b 
+{\cf1 this}}{\cf0 .validCase[i][j] = }{\b 
+{\cf1 new}}{\cf0  Nodes();}{\line 
+}{\f1 {\fs20 
+{\cf0     \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  resetPlayground()\{}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 for}}{\cf0 (}{\b 
+{\cf1 int}}{\cf0  i=0; i < }{\b 
+{\cf1 this}}{\cf0 .sizeX + sizeOfCase; i++)}{\line 
+}{\f1 {\fs20 
+{\cf0                         }}}{\b 
+{\cf1 for}}{\cf0 (}{\b 
+{\cf1 int}}{\cf0  j=0; j < }{\b 
+{\cf1 this}}{\cf0 .sizeY + sizeOfCase; j++)}{\line 
+}{\f1 {\fs20 
+{\cf0                             }}}{\b 
+{\cf1 this}}{\cf0 .validCase[i][j].setValid();}{\line 
+}{\f1 {\fs20 
+{\cf0     \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  initTrace() \{}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 this}}{\cf0 .traces = }{\b 
+{\cf1 new}}{\cf0  Traces[}{\b 
+{\cf1 this}}{\cf0 .sizeX + sizeOfCase][}{\b 
+{\cf1 this}}{\cf0 .sizeY + sizeOfCase];}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 for}}{\cf0 (}{\b 
+{\cf1 int}}{\cf0  i=0; i < }{\b 
+{\cf1 this}}{\cf0 .sizeX + sizeOfCase; i++)}{\line 
+}{\f1 {\fs20 
+{\cf0                         }}}{\b 
+{\cf1 for}}{\cf0 (}{\b 
+{\cf1 int}}{\cf0  j=0; j < }{\b 
+{\cf1 this}}{\cf0 .sizeY + sizeOfCase; j++)}{\line 
+}{\f1 {\fs20 
+{\cf0                             }}}{\b 
+{\cf1 this}}{\cf0 .traces[i][j] = }{\b 
+{\cf1 new}}{\cf0  Traces();}{\line 
+}{\f1 {\fs20 
+{\cf0     \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  resetTrace()\{}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 for}}{\cf0 (}{\b 
+{\cf1 int}}{\cf0  i=0; i < }{\b 
+{\cf1 this}}{\cf0 .sizeX + sizeOfCase; i++)}{\line 
+}{\f1 {\fs20 
+{\cf0                         }}}{\b 
+{\cf1 for}}{\cf0 (}{\b 
+{\cf1 int}}{\cf0  j=0; j < }{\b 
+{\cf1 this}}{\cf0 .sizeY + sizeOfCase; j++)}{\line 
+}{\f1 {\fs20 
+{\cf0                             }}}{\b 
+{\cf1 this}}{\cf0 .traces[i][j].reset();}{\line 
+}{\f1 {\fs20 
+{\cf0     \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  initAnt() \{{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 this}}{\cf0 .numberOfSuccess = 0;}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 this}}{\cf0 .numberOfGoalReached = 0;{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0             antColony.clear();}}}{\line 
+}{\f1 {\fs20 
+{\cf0             List antColony = }}}{\b 
+{\cf1 new}}{\cf0  LinkedList();{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 for}}{\cf0 (}{\b 
+{\cf1 int}}{\cf0  i=0; i < numberOfAnts; i++)}{\line 
+}{\f1 {\fs20 
+{\cf0                         antColony.add(}}}{\b 
+{\cf1 new}}{\cf0  Ant());}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 for}}{\cf0  (Iterator iter = antColony.iterator(); iter.hasNext();) \{}{\line 
+}{\f1 {\fs20 
+{\cf0                     Ant ant = (Ant) iter.next();}}}{\line 
+}{\f1 {\fs20 
+{\cf0                     ant.setPosition(}}}{\b 
+{\cf1 this}}{\cf0 .getStartX()*}{\b 
+{\cf1 this}}{\cf0 .getSizeCase(), }{\b 
+{\cf1 this}}{\cf0 .getStartY()*}{\b 
+{\cf1 this}}{\cf0 .getSizeCase());}{\line 
+}{\f1 {\fs20 
+{\cf0                     }}}{\b 
+{\cf1 this}}{\cf0 .addAnt(ant);}{\line 
+}{\f1 {\fs20 
+{\cf0                 \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  paint(Graphics g)\{{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\i 
+{\cf2 //Background}}{\line 
+}{\f1 {\fs20 
+{\cf0         g.setColor(Color.WHITE);}}}{\line 
+}{\f1 {\fs20 
+{\cf0         g.fillRect(0, 0, getSizeX()+getSizeCase(), getSizeY()+getSizeCase());{\line 
+}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\i 
+{\cf2 //Traces and validCase}}{\line 
+}{\f1 {\fs20 
+{\cf0                     }}}{\b 
+{\cf1 for}}{\cf0 (}{\b 
+{\cf1 int}}{\cf0  i=0; i < getSizeX(); i++)}{\line 
+}{\f1 {\fs20 
+{\cf0                                 }}}{\b 
+{\cf1 for}}{\cf0 (}{\b 
+{\cf1 int}}{\cf0  j=0; j < getSizeX(); j++)\{}{\line 
+}{\f1 {\fs20 
+{\cf0                                     }}}{\b 
+{\cf1 if}}{\cf0 (!}{\b 
+{\cf1 this}}{\cf0 .validCase[i][j].isCaseValid())\{}{\line 
+}{\f1 {\fs20 
+{\cf0                                         g.setColor(Color.BLACK);}}}{\line 
+}{\f1 {\fs20 
+{\cf0                                         g.fillRect(i,j,getSizeCase(),getSizeCase());}}}{\line 
+}{\f1 {\fs20 
+{\cf0                                         g.setColor(Color.GRAY);}}}{\line 
+}{\f1 {\fs20 
+{\cf0                                         g.drawLine(i+1, j+1, i+getSizeCase()-2, j+1);}}}{\line 
+}{\f1 {\fs20 
+{\cf0                                         g.drawLine(i+1, j+1, i+1, j+getSizeCase()-2);}}}{\line 
+}{\f1 {\fs20 
+{\cf0                                     \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                                     }}}{\b 
+{\cf1 else}}{\line 
+}{\f1 {\fs20 
+{\cf0                                         (}}}{\b 
+{\cf1 this}}{\cf0 .traces[i][j]).draw(g,}{\b 
+{\cf1 this}}{\cf0 ,i,j);}{\line 
+}{\f1 {\fs20 
+{\cf0                                 \}{\line 
+}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\i 
+{\cf2 //Ant (they draw themselves)}}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 for}}{\cf0  (Iterator iter = antColony.iterator(); iter.hasNext();) \{}{\line 
+}{\f1 {\fs20 
+{\cf0             ((Ant) iter.next()).draw(g, }}}{\b 
+{\cf1 this}}{\cf0 );}{\line 
+}{\f1 {\fs20 
+{\cf0         \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\i 
+{\cf2 //Start Point and Goal Point}}{\line 
+}{\f1 {\fs20 
+{\cf0                 g.setColor(Color.CYAN);}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 g.drawRect(startX * sizeOfCase, startY * sizeOfCase, sizeOfCase, sizeOfCase);}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 g.fillRect(goalX * sizeOfCase, goalY * sizeOfCase, sizeOfCase, sizeOfCase);}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 g.setColor(Color.BLACK);}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 g.drawLine(goalX*sizeOfCase, goalY*sizeOfCase, sizeOfCase*(goalX+1), (1+goalY)*sizeOfCase);}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 g.drawLine((goalX+1)*sizeOfCase, goalY*sizeOfCase, sizeOfCase*goalX, sizeOfCase*(goalY+1));{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\i 
+{\cf2 //Number of times the goal has been reached}}{\line 
+}{\f1 {\fs20 
+{\cf0                 g.setColor(Color.GRAY);}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 String s2 = }}}{\cf3 "Number of Success : "}{\cf0  + String.valueOf(numberOfSuccess);}{\line 
+}{\f1 {\fs20 
+{\cf0                 String s1 = }}}{\cf3 "Number of GoalReached : "}{\cf0  + String.valueOf(numberOfGoalReached);}{\line 
+}{\f1 {\fs20 
+{\cf0                 g.drawString(s1, sizeX - 14 * sizeOfCase, sizeOfCase);}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 g.drawString(s2, sizeX - 14 * sizeOfCase, 2 * sizeOfCase);{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  moveAnts()\{{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0             ageTheTrace();{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 int}}{\cf0  x,y;}{\line 
+}{\f1 {\fs20 
+{\cf0             Ant ant;}}}{\line 
+}{\f1 {\fs20 
+{\cf0             Traces t;{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 for}}{\cf0  (Iterator iter = antColony.iterator(); iter.hasNext();) \{}{\line 
+}{\f1 {\fs20 
+{\cf0                     ant = (Ant) iter.next();}}}{\line 
+}{\f1 {\fs20 
+{\cf0                         x = ant.getPosition()[0];}}}{\line 
+}{\f1 {\fs20 
+{\cf0                         y = ant.getPosition()[1];{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                         }}}{\i 
+{\cf2 //If on goal or on start}}{\line 
+}{\f1 {\fs20 
+{\cf0                         treatmentStartGoal(x,y,ant);{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                         }}}{\i 
+{\cf2 // Add a trace, depending on goal}}{\line 
+}{\f1 {\fs20 
+{\cf0                         t = }}}{\b 
+{\cf1 this}}{\cf0 .traces[x][y];}{\line 
+}{\f1 {\fs20 
+{\cf0                         }}}{\b 
+{\cf1 if}}{\cf0 (ant.getGoal())}{\line 
+}{\f1 {\fs20 
+{\cf0                             t.addBack();}}}{\line 
+}{\f1 {\fs20 
+{\cf0                         }}}{\b 
+{\cf1 else}}{\line 
+}{\f1 {\fs20 
+{\cf0                             t.addAway();{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                         }}}{\i 
+{\cf2 // Add One move and check Endurance}}{\line 
+}{\f1 {\fs20 
+{\cf0                         ant.addOneMove();}}}{\line 
+}{\f1 {\fs20 
+{\cf0                         }}}{\b 
+{\cf1 if}}{\cf0 (ant.getMove() > ant.getEndurance())}{\line 
+}{\f1 {\fs20 
+{\cf0                             ant.setTired();{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                         }}}{\i 
+{\cf2 // Move}}{\line 
+}{\f1 {\fs20 
+{\cf0                         }}}{\b 
+{\cf1 if}}{\cf0 (ant.getTired()&&(!ant.getGoal()))\{}{\line 
+}{\f1 {\fs20 
+{\cf0                             ant.moveTowardAway(x,y,}}}{\b 
+{\cf1 this}}{\cf0 );}{\line 
+}{\f1 {\fs20 
+{\cf0                         \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                         }}}{\b 
+{\cf1 else}}{\cf0  }{\b 
+{\cf1 if}}{\cf0 (!goalReached)}{\line 
+}{\f1 {\fs20 
+{\cf0                             ant.moveStraightAwayFromAway(x,y,}}}{\b 
+{\cf1 this}}{\cf0 );}{\line 
+}{\f1 {\fs20 
+{\cf0                         }}}{\b 
+{\cf1 else}}{\cf0  \{}{\line 
+}{\f1 {\fs20 
+{\cf0                             }}}{\b 
+{\cf1 if}}{\cf0 (ant.getGoal())}{\line 
+}{\f1 {\fs20 
+{\cf0                                 ant.moveFromFoodToHomeRepartition(x,y,}}}{\b 
+{\cf1 this}}{\cf0 );}{\line 
+}{\f1 {\fs20 
+{\cf0                             }}}{\b 
+{\cf1 else}}{\line 
+}{\f1 {\fs20 
+{\cf0                                 ant.moveFromHomeToFoodRepartition(x,y,}}}{\b 
+{\cf1 this}}{\cf0 );}{\line 
+}{\f1 {\fs20 
+{\cf0                         \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 private}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  treatmentStartGoal(}{\b 
+{\cf1 int}}{\cf0  x, }{\b 
+{\cf1 int}}{\cf0  y, Ant ant) \{{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\i 
+{\cf2 // If on Goal}}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 if}}{\cf0 ((x == goalX * sizeOfCase) && (y == goalY * sizeOfCase))\{}{\line 
+}{\f1 {\fs20 
+{\cf0                     }}}{\b 
+{\cf1 if}}{\cf0 (!ant.getGoal())\{}{\line 
+}{\f1 {\fs20 
+{\cf0                         numberOfGoalReached++;}}}{\line 
+}{\f1 {\fs20 
+{\cf0                         ant.setGoal();}}}{\line 
+}{\f1 {\fs20 
+{\cf0                         }}}{\b 
+{\cf1 this}}{\cf0 .goalReached = }{\b 
+{\cf1 true}}{\cf0 ;}{\line 
+}{\f1 {\fs20 
+{\cf0                         ant.resetLastPosition();}}}{\line 
+}{\f1 {\fs20 
+{\cf0                     \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\i 
+{\cf2 // If on Start}}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 if}}{\cf0 ((x == startX * sizeOfCase) && (y == startY * sizeOfCase))\{}{\line 
+}{\f1 {\fs20 
+{\cf0                     }}}{\b 
+{\cf1 if}}{\cf0 (ant.getGoal())\{}{\line 
+}{\f1 {\fs20 
+{\cf0                         }}}{\b 
+{\cf1 this}}{\cf0 .numberOfSuccess++;}{\line 
+}{\f1 {\fs20 
+{\cf0                             ant.unsetGoal();}}}{\line 
+}{\f1 {\fs20 
+{\cf0                             ant.resetLastPosition();}}}{\line 
+}{\f1 {\fs20 
+{\cf0                     \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                     }}}{\b 
+{\cf1 if}}{\cf0 (ant.getTired())\{}{\line 
+}{\f1 {\fs20 
+{\cf0                         ant.unsetTired();}}}{\line 
+}{\f1 {\fs20 
+{\cf0                         ant.resetLastPosition();}}}{\line 
+}{\f1 {\fs20 
+{\cf0                     \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 private}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  ageTheTrace() \{}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\i 
+{\cf2 // Age the traces}}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 for}}{\cf0 (}{\b 
+{\cf1 int}}{\cf0  i=0; i < getSizeX(); i+=sizeOfCase)\{}{\line 
+}{\f1 {\fs20 
+{\cf0                         }}}{\b 
+{\cf1 for}}{\cf0 (}{\b 
+{\cf1 int}}{\cf0  j=0; j < getSizeX(); j+=sizeOfCase)\{}{\line 
+}{\f1 {\fs20 
+{\cf0                                 Traces trace = }}}{\b 
+{\cf1 this}}{\cf0 .traces[i][j];}{\line 
+}{\f1 {\fs20 
+{\cf0                                 trace.toAge();}}}{\line 
+}{\f1 {\fs20 
+{\cf0                         \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  run() \{}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 while}}{\cf0 (iRun)\{}{\line 
+}{\f1 {\fs20 
+{\cf0             timerWaiting(timeOfRound);}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 moveAnts();}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 repaint();}}}{\line 
+}{\f1 {\fs20 
+{\cf0         \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 public}}{\cf0  Traces[][] getTrace()\{}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 return}}{\cf0  }{\b 
+{\cf1 this}}{\cf0 .traces;}{\line 
+}{\f1 {\fs20 
+{\cf0         \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 public}}{\cf0  Nodes[][] getNodes()\{}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 return}}{\cf0  }{\b 
+{\cf1 this}}{\cf0 .validCase;}{\line 
+}{\f1 {\fs20 
+{\cf0         \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  addAnt(Ant ant)\{}{\line 
+}{\f1 {\fs20 
+{\cf0                 antColony.add(ant);}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 repaint();}}}{\line 
+}{\f1 {\fs20 
+{\cf0         \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 int}}{\cf0  getSizeCase()\{}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 return}}{\cf0  sizeOfCase;}{\line 
+}{\f1 {\fs20 
+{\cf0         \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 int}}{\cf0  getSizeOfThePlayground()\{}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 return}}{\cf0  sizeOfThePlayground;}{\line 
+}{\f1 {\fs20 
+{\cf0         \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 int}}{\cf0  getSizeX()\{}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 return}}{\cf0  sizeX;}{\line 
+}{\f1 {\fs20 
+{\cf0         \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 int}}{\cf0  getSizeY()\{}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 return}}{\cf0  sizeY;}{\line 
+}{\f1 {\fs20 
+{\cf0         \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 int}}{\cf0  getStartX()\{}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 return}}{\cf0  startX;}{\line 
+}{\f1 {\fs20 
+{\cf0         \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 int}}{\cf0  getStartY()\{}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 return}}{\cf0  startY;}{\line 
+}{\f1 {\fs20 
+{\cf0         \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 boolean}}{\cf0  getValidCase(}{\b 
+{\cf1 int}}{\cf0  x, }{\b 
+{\cf1 int}}{\cf0  y)\{}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 return}}{\cf0  }{\b 
+{\cf1 this}}{\cf0 .validCase[x][y].isCaseValid();}{\line 
+}{\f1 {\fs20 
+{\cf0         \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  invertCase(}{\b 
+{\cf1 int}}{\cf0  x, }{\b 
+{\cf1 int}}{\cf0  y)\{}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\b 
+{\cf1 this}}{\cf0 .validCase[x][y].changeCase();}{\line 
+}{\f1 {\fs20 
+{\cf0         \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  setNodes(Nodes[][] newNodes) \{}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 this}}{\cf0 .validCase = newNodes;}{\line 
+}{\f1 {\fs20 
+{\cf0     \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  setiRun()\{}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 this}}{\cf0 .iRun = }{\b 
+{\cf1 true}}{\cf0 ;}{\line 
+}{\f1 {\fs20 
+{\cf0     \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  unsetiRun()\{}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 this}}{\cf0 .iRun = }{\b 
+{\cf1 false}}{\cf0 ;}{\line 
+}{\f1 {\fs20 
+{\cf0     \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  timerWaiting(}{\b 
+{\cf1 int}}{\cf0  TimeMilliseconds)\{}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 long}}{\cf0  t0, t1;{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0                 t0=System.currentTimeMillis( );}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 t1=System.currentTimeMillis( )+(TimeMilliseconds);{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 do}}{\cf0  \{}{\line 
+}{\f1 {\fs20 
+{\cf0                         t0=System.currentTimeMillis( );{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                         \} }}}{\b 
+{\cf1 while}}{\cf0  (t0 < t1);}{\line 
+}{\f1 {\fs20 
+{\cf0         \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0 \}{\line 
+}}}}}}}}}

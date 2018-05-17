@@ -1,0 +1,82 @@
+{\rtf1\ansi {\fonttbl
+{\f0\fcharset1 \fnil Times New Roman;}
+{\f1\fcharset1 Courier New;}
+}
+{\colortbl
+\red0\green0\blue0;
+\red128\green0\blue0;
+\red0\green0\blue255;
+}
+
+{\plain 
+{\f1 {\fs20 
+{\cf0 {\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 package}}}}{\cf0  view;{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  java.awt.event.ItemEvent;}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  java.awt.event.ItemListener;{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  object.Playground;{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 public}}}}{\cf0  }{\b 
+{\cf1 class}}{\cf0  buttonStart }{\b 
+{\cf1 implements}}{\cf0  ItemListener \{{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 private}}{\cf0  Playground p;{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 public}}{\cf0  buttonStart(Playground p) \{}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 super}}{\cf0 ();}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 this}}{\cf0 .p = p;}{\line 
+}{\f1 {\fs20 
+{\cf0     \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  itemStateChanged(ItemEvent e) \{}{\line 
+}{\f1 {\fs20 
+{\cf0         Thread t = }}}{\b 
+{\cf1 new}}{\cf0  Thread(p);{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 if}}{\cf0  (e.getStateChange() == ItemEvent.SELECTED) \{}{\line 
+}{\f1 {\fs20 
+{\cf0             System.out.println(}}}{\cf2 "Start"}{\cf0 );}{\line 
+}{\f1 {\fs20 
+{\cf0                 p.setiRun();}}}{\line 
+}{\f1 {\fs20 
+{\cf0             t.start();}}}{\line 
+}{\f1 {\fs20 
+{\cf0             \} }}}{\b 
+{\cf1 else}}{\cf0  \{}{\line 
+}{\f1 {\fs20 
+{\cf0                 System.out.println(}}}{\cf2 "Stop"}{\cf0 );}{\line 
+}{\f1 {\fs20 
+{\cf0                 p.unsetiRun();}}}{\line 
+}{\f1 {\fs20 
+{\cf0         \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0 \}}}}}}}}}

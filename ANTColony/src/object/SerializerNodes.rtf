@@ -1,0 +1,198 @@
+{\rtf1\ansi {\fonttbl
+{\f0\fcharset1 \fnil Times New Roman;}
+{\f1\fcharset1 Courier New;}
+}
+{\colortbl
+\red0\green0\blue0;
+\red128\green0\blue0;
+\red0\green0\blue255;
+}
+
+{\plain 
+{\f1 {\fs20 
+{\cf0 {\f1 {\fs20 
+{\b 
+{\cf1 package}}}}{\cf0  object;{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  java.io.BufferedInputStream;}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  java.io.BufferedOutputStream;}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  java.io.FileInputStream;}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  java.io.FileOutputStream;}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  java.io.IOException;}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  java.io.ObjectInputStream;}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  java.io.ObjectOutputStream;}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  java.util.Date;}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  java.util.zip.Deflater;}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  java.util.zip.ZipEntry;}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  java.util.zip.ZipInputStream;}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  java.util.zip.ZipOutputStream;{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 public}}}}{\cf0  }{\b 
+{\cf1 class}}{\cf0  SerializerNodes \{{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 private}}{\cf0  Playground p;{\line 
+}{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 public}}{\cf0  SerializerNodes(Playground p)\{}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 this}}{\cf0 .p = p;}{\line 
+}{\f1 {\fs20 
+{\cf0     \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  saveInFile()\{{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0         Nodes[][] iNodes = p.getNodes();{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         StringBuffer fileNameBuf = }}}{\b 
+{\cf1 new}}{\cf0  StringBuffer((}{\b 
+{\cf1 new}}{\cf0  Date()).toLocaleString());}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 for}}{\cf0 (}{\b 
+{\cf1 int}}{\cf0  i=0; i<fileNameBuf.length(); i++)\{}{\line 
+}{\f1 {\fs20 
+{\cf0                         }}}{\b 
+{\cf1 if}}{\cf0 ((fileNameBuf.charAt(i) == }{\cf2 ' '}{\cf0 )||(fileNameBuf.charAt(i) == }{\cf2 '.'}{\cf0 )||(fileNameBuf.charAt(i) == }{\cf2 ':'}{\cf0 ))}{\line 
+}{\f1 {\fs20 
+{\cf0                             fileNameBuf.setCharAt(i, }}}{\cf2 '-'}{\cf0 );}{\line 
+}{\f1 {\fs20 
+{\cf0                 \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 String nameFile = fileNameBuf.toString();{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 String nameZip = fileNameBuf.toString() + }}}{\cf2 ".map"}{\cf0 ;}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 try}}{\cf0 \{}{\line 
+}{\f1 {\fs20 
+{\cf0                     FileOutputStream myZip = }}}{\b 
+{\cf1 new}}{\cf0  FileOutputStream(nameZip.toString());}{\line 
+}{\f1 {\fs20 
+{\cf0                     ZipOutputStream myFileZip = }}}{\b 
+{\cf1 new}}{\cf0  ZipOutputStream(myZip);}{\line 
+}{\f1 {\fs20 
+{\cf0                     myFileZip.setMethod(ZipOutputStream.DEFLATED);}}}{\line 
+}{\f1 {\fs20 
+{\cf0                     myFileZip.setLevel(Deflater.BEST_COMPRESSION);{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                     ZipEntry entryZip = }}}{\b 
+{\cf1 new}}{\cf0  ZipEntry(nameFile);}{\line 
+}{\f1 {\fs20 
+{\cf0                     myFileZip.putNextEntry(entryZip);{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                     BufferedOutputStream bufferedOutput = }}}{\b 
+{\cf1 new}}{\cf0  BufferedOutputStream(myFileZip);}{\line 
+}{\f1 {\fs20 
+{\cf0                     ObjectOutputStream fileOutput = }}}{\b 
+{\cf1 new}}{\cf0  ObjectOutputStream(bufferedOutput);{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0                     fileOutput.writeObject(iNodes);{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                     fileOutput.flush();}}}{\line 
+}{\f1 {\fs20 
+{\cf0                     myFileZip.closeEntry();}}}{\line 
+}{\f1 {\fs20 
+{\cf0                     myFileZip.close();}}}{\line 
+}{\f1 {\fs20 
+{\cf0                     fileOutput.close();}}}{\line 
+}{\f1 {\fs20 
+{\cf0                     myZip.flush();}}}{\line 
+}{\f1 {\fs20 
+{\cf0                     myZip.close();{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                     System.out.println(}}}{\cf2 "Map saved in "}{\cf0  + nameZip);}{\line 
+}{\f1 {\fs20 
+{\cf0                 \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 catch}}{\cf0  (IOException e) \{}{\line 
+}{\f1 {\fs20 
+{\cf0                     e.printStackTrace();}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 \}{\line 
+}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  loadFromFile(String myFile) }{\b 
+{\cf1 throws}}{\cf0  IOException, ClassNotFoundException \{{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0                 ZipInputStream zipFile = }}}{\b 
+{\cf1 new}}{\cf0  ZipInputStream(}{\b 
+{\cf1 new}}{\cf0  FileInputStream(myFile));}{\line 
+}{\f1 {\fs20 
+{\cf0                 ZipEntry entryZip = zipFile.getNextEntry();{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 BufferedInputStream buff = }}}{\b 
+{\cf1 new}}{\cf0  BufferedInputStream(zipFile);}{\line 
+}{\f1 {\fs20 
+{\cf0                 ObjectInputStream oos = }}}{\b 
+{\cf1 new}}{\cf0  ObjectInputStream(buff);{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0                 Nodes[][] newNodes = (Nodes[][]) oos.readObject();{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 oos.close();}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 zipFile.close();}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 buff.close();{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 p.setNodes(newNodes);}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 p.repaint();}}}{\line 
+}{\f1 {\fs20 
+{\cf0         \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0 \}}}}}}}}}

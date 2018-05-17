@@ -1,0 +1,171 @@
+{\rtf1\ansi {\fonttbl
+{\f0\fcharset1 \fnil Times New Roman;}
+{\f1\fcharset1 Courier New;}
+}
+{\colortbl
+\red0\green0\blue0;
+\red128\green0\blue0;
+\red0\green0\blue255;
+}
+
+{\plain 
+{\f1 {\fs20 
+{\cf0 {\f1 {\fs20 
+{\b 
+{\cf1 package}}}}{\cf0  view;{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  java.awt.Dimension;}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  java.awt.FlowLayout;{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  javax.swing.JMenu;}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  javax.swing.JMenuBar;}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  javax.swing.JMenuItem;}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  javax.swing.JPanel;}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  javax.swing.JToggleButton;{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  object.Playground;{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 public}}}}{\cf0  }{\b 
+{\cf1 class}}{\cf0  JMenuPanel }{\b 
+{\cf1 extends}}{\cf0  JPanel\{{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 private}}{\cf0  Playground p;{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 public}}{\cf0  JMenuPanel(Playground p) \{}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 this}}{\cf0 .p = p;}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 this}}{\cf0 .initMenu(p);}{\line 
+}{\f1 {\fs20 
+{\cf0     \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 private}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  initMenu(Playground p) \{{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0                 setPreferredSize(}}}{\b 
+{\cf1 new}}{\cf0  Dimension(400, 36));{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0                 setLayout(}}}{\b 
+{\cf1 new}}{\cf0  FlowLayout());{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0                 JMenuBar jBar = }}}{\b 
+{\cf1 new}}{\cf0  JMenuBar();{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0                 JMenu jFile = }}}{\b 
+{\cf1 new}}{\cf0  JMenu(}{\cf2 "Playground"}{\cf0 );{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0                 JMenuItem jNew = }}}{\b 
+{\cf1 new}}{\cf0  JMenuItem(}{\cf2 "New"}{\cf0 );}{\line 
+}{\f1 {\fs20 
+{\cf0                 jNew.addActionListener(}}}{\b 
+{\cf1 new}}{\cf0  buttonListener(p));{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0                 JMenuItem jLoad = }}}{\b 
+{\cf1 new}}{\cf0  JMenuItem(}{\cf2 "Load"}{\cf0 );}{\line 
+}{\f1 {\fs20 
+{\cf0                 jLoad.addActionListener(}}}{\b 
+{\cf1 new}}{\cf0  buttonListener(p));{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0                 JToggleButton jStart = }}}{\b 
+{\cf1 new}}{\cf0  JToggleButton(}{\cf2 "Start"}{\cf0 );}{\line 
+}{\f1 {\fs20 
+{\cf0                 jStart.addItemListener(}}}{\b 
+{\cf1 new}}{\cf0  buttonStart(p));{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0                 JMenuItem jResetTrace = }}}{\b 
+{\cf1 new}}{\cf0  JMenuItem(}{\cf2 "ResetTrace"}{\cf0 );}{\line 
+}{\f1 {\fs20 
+{\cf0                 jResetTrace.addActionListener(}}}{\b 
+{\cf1 new}}{\cf0  buttonListener(p));{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0                 JMenuItem jResetPlayground = }}}{\b 
+{\cf1 new}}{\cf0  JMenuItem(}{\cf2 "ResetPlayground"}{\cf0 );}{\line 
+}{\f1 {\fs20 
+{\cf0                 jResetPlayground.addActionListener(}}}{\b 
+{\cf1 new}}{\cf0  buttonListener(p));{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0                 JMenuItem jResetAnt = }}}{\b 
+{\cf1 new}}{\cf0  JMenuItem(}{\cf2 "ResetAnt"}{\cf0 );}{\line 
+}{\f1 {\fs20 
+{\cf0                 jResetAnt.addActionListener(}}}{\b 
+{\cf1 new}}{\cf0  buttonListener(p));{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0                 JMenuItem jSave = }}}{\b 
+{\cf1 new}}{\cf0  JMenuItem(}{\cf2 "Save"}{\cf0 );}{\line 
+}{\f1 {\fs20 
+{\cf0                 jSave.addActionListener(}}}{\b 
+{\cf1 new}}{\cf0  buttonListener(p));{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0                 JMenuItem jQuit = }}}{\b 
+{\cf1 new}}{\cf0  JMenuItem(}{\cf2 "Exit"}{\cf0 );}{\line 
+}{\f1 {\fs20 
+{\cf0                 jQuit.addActionListener(}}}{\b 
+{\cf1 new}}{\cf0  buttonListener(p));{\line 
+}{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0                 jFile.add(jNew);}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 jFile.add(jLoad);}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 jFile.add(jResetAnt);}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 jFile.add(jResetTrace);}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 jFile.add(jResetPlayground);}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 jFile.add(jSave);}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 jFile.add(jQuit);{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 jBar.add(jFile);{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 this}}{\cf0 .add(jBar);}{\line 
+}{\f1 {\fs20 
+{\cf0                 }}}{\b 
+{\cf1 this}}{\cf0 .add(jStart);}{\line 
+}{\f1 {\fs20 
+{\cf0     \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0 \}}}}}}}}}

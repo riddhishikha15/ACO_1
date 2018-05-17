@@ -1,0 +1,109 @@
+{\rtf1\ansi {\fonttbl
+{\f0\fcharset1 \fnil Times New Roman;}
+{\f1\fcharset1 Courier New;}
+}
+{\colortbl
+\red0\green0\blue0;
+\red128\green0\blue0;
+\red0\green128\blue0;
+}
+
+{\plain 
+{\f1 {\fs20 
+{\cf0 {\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 package}}}}{\cf0  object;{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  java.awt.event.MouseEvent;}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 import}}}}{\cf0  java.awt.event.MouseMotionListener;{\line 
+}{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\b 
+{\cf1 public}}}}{\cf0  }{\b 
+{\cf1 class}}{\cf0  PlaygroundMouseMotionListener }{\b 
+{\cf1 implements}}{\cf0  MouseMotionListener \{{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 private}}{\cf0  Playground p;}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 int}}{\cf0  posX, posY;{\line 
+}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 public}}{\cf0  PlaygroundMouseMotionListener(Playground p) \{}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 super}}{\cf0 ();}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 this}}{\cf0 .p = p;}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 this}}{\cf0 .posX = 0;}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 this}}{\cf0 .posY = 0;}{\line 
+}{\f1 {\fs20 
+{\cf0     \}{\line 
+}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  mouseDragged(MouseEvent e) \{}{\line 
+}{\f1 {\fs20 
+{\cf0        }}}{\b 
+{\cf1 boolean}}{\cf0  doIt = }{\b 
+{\cf1 false}}{\cf0 ;}{\line 
+}{\f1 {\fs20 
+{\cf0        }}}{\b 
+{\cf1 if}}{\cf0 (e.getX()/p.getSizeCase() != posX)\{}{\line 
+}{\f1 {\fs20 
+{\cf0            posX = e.getX()/p.getSizeCase();}}}{\line 
+}{\f1 {\fs20 
+{\cf0            doIt = }}}{\b 
+{\cf1 true}}{\cf0 ;}{\line 
+}{\f1 {\fs20 
+{\cf0        \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0        }}}{\b 
+{\cf1 if}}{\cf0 (e.getY()/p.getSizeCase() != posY)\{}{\line 
+}{\f1 {\fs20 
+{\cf0            posY = e.getY()/p.getSizeCase();}}}{\line 
+}{\f1 {\fs20 
+{\cf0            doIt = }}}{\b 
+{\cf1 true}}{\cf0 ;}{\line 
+}{\f1 {\fs20 
+{\cf0        \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0         }}}{\b 
+{\cf1 if}}{\cf0 (doIt)\{}{\line 
+}{\f1 {\fs20 
+{\cf0             }}}{\i 
+{\cf2 //System.out.println("Invert Case: [" + posX + "," + posY + "]");}}{\line 
+}{\f1 {\fs20 
+{\cf0             p.invertCase(posX*p.getSizeCase(), posY*p.getSizeCase());}}}{\line 
+}{\f1 {\fs20 
+{\cf0             p.repaint();}}}{\line 
+}{\f1 {\fs20 
+{\cf0         \}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0     }}}{\b 
+{\cf1 public}}{\cf0  }{\b 
+{\cf1 void}}{\cf0  mouseMoved(MouseEvent arg0) \{}{\line 
+}{\f1 {\fs20 
+{\cf0     \}{\line 
+}}}}{\line 
+}{\f1 {\fs20 
+{\cf0 \}}}}}}}}}
